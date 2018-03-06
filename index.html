@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="maximum-scale=1, minimum-scale=1, user-scalable=no, initial-scale=1, width=device-width">
+	<link rel="stylesheet" href="module/reset.css">
+	<title>小馨外卖网</title>
+</head>
+<body>
+	<div id="ickt">
+		<div class="header">
+		<div class="go-back"  @click="goBack">
+			<span class="arrow"></span><span class="arrow green"></span>
+		</div>
+		<a class="login" :href="'#/informat/mine'">我的</a>
+		<h1>小馨外卖网</h1>
+		</div>
+		<div class="search" v-show="view == 'home' || view == 'list'">
+			<div class="coner">北京<span class="arrow"><span class="arrow purple"></span>
+		</div>
+			<input type="text" v-model="searchValue" @keydown.enter="showSearchResult" placeholder="" >
+		</div>
+		<component :is="view" :route="route" :search-query="query"></component>		
+	</div>
+
+	<template id="tpl_home">
+		<div class="home">
+			<ul class="types clearfix">
+				<li v-for="item in icons">
+					<a :href="'#/list/type/' + item.id">
+						<img :src="'img/icon/' + item.img" alt="">
+						<p>{{item.title}}</p>
+					</a>
+				</li>
+			</ul>
+			
+				<img src="img/ad/11.jpg" alt="" class="imgimg">
+			<div id="box">
+		  		<ul id="con1" ref="con1" :class="{anim:animate==true}">
+		  			<li v-for='item in items'>{{item.name}}</li>
+		  		</ul>
+			</div>
+			<ul class="ads clearfix">
+				<li v-for="(item, index) in ad">
+					<a :href="'#/detail/' + item.id">
+						<h3 :class="'color-' + (index + 1)">{{item.title}}</h3>
+						<p>{{item.description}}</p>
+						<img :src="'img/ad/' + item.url" alt="">
+					</a>
+				</li>
+			</ul>
+
+			<div class="guess">
+				<h2 class="guess-tittle">猜你喜欢</h2>
+				<ul class="items">
+					<li v-for="item in list"><a :href="'#detail/' + item.id">
+							<img :src="'img/list/' + item.img" alt="">
+							<div class="content">
+								<h3>{{item.title}}</h3>
+								<p>
+									<span class="price">
+									{{item.price}}元	
+									</span>
+									<span class="origin-price">门市价：{{item.originPrice}}元</span>
+									<span class="sales" @click="DD($event)">销量{{item.sales}}</span>
+								</p>
+							</div>
+						</a>
+					</li>
+				</ul>
+			</div>
+	</template>
+	<template id="tpl_list">
+	<div class="list">
+		<ul class="order clearfix">
+			<li v-for="item in orders" @click="listOrder(item.id)">
+				<span>{{item.text}}</span>
+				<span class="arrow"></span>
+			</li>
+		</ul>
+		<ul class="items">
+			<li v-for="item in listFilterResult">
+				<a :href="'#/detail/' + item.id">
+					<img :src="'img/list/' + item.img" alt="">
+					<div class="content">
+						<h3>{{item.title}}</h3>
+						<p>
+							<span class="price">{{item.price}}元</span>
+							<span class="price-origin">门市价：{{item.originPrice}}元</span>
+							<span class="sales">销量{{item.sales}}</span>
+						</p>
+					</div>
+				</a>
+			</li>
+		</ul>
+		<div class="load-more" v-show="others.length" @click="showOthers()">
+			<span class="text">查看其它{{others.length}}条团购</span>
+			<span class="arrow">
+				<span class="arrow white"></span>
+			</span>
+		</div>
+	</div>
+</template>
+<template id="tpl_detail">
+	<div class="detail">
+		<div class="img-part">
+			<img :src="'img/item/'+ data.src" alt="">
+			<h1>{{data.title}}</h1>
+			<p>{{data.description}}</p>
+		</div>
+		<div class="price-part">
+			<span class="price"><strong>{{data.price}}</strong>元</span>
+			<span class="origin-price">门市价{{data.originPrice}}元</span>
+			<span class="buy">立即购买</span>
+		</div>
+		<ul class="sales-part clearfix">
+			<li>支持立即退货</li>
+			<li>支持随时退货</li>
+			<li>销量{{data.sales}}</li>
+		</ul>
+		<div class="module store-part">
+			<div class="module-header">店家信息</div>
+			<div class="module-body">
+				<p>{{data.storeName}}</p>
+				<p>{{data.storeAddress}}</p>
+			</div>
+			<div class="module-footer">查看{{data.storeNum}}家分店</div>
+		</div>
+		<div class="module buy-part">
+			<div class="module-header">购买须知</div>
+			<div class="module-body">
+				<ul>
+					<li>
+						<h3>有效日期</h3>
+						<p>{{data.validateTime}}</p>
+				    </li>
+					<li>
+						<h3>使用时间</h3>
+						<p>{{data.useTime}}</p>
+				    </li>
+				    <li>
+						<h3>使用规则</h3>
+						<p v-for="item in data.rules">{{item}}</p>
+				    </li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</template>
+<template id="mine">
+		<div class="regins">
+			<a :href="'#/login/meituan'">登录</a>
+			<a :href="'#/regin/welcome'">注册</a>
+		</div>
+</template>
+<template id="login">
+	<div class="container">
+		用户名称:<input type="text"><br>
+		密码：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text"><br>
+		 &nbsp;<button class="tj" type="submit">提交</button>			
+	</div>
+</template>
+<template id="regin">
+	<div class="footer">
+		用户名称:&nbsp;&nbsp;<input type="text"><br>
+		密码：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text"><br>
+		手机号：&nbsp;&nbsp;&nbsp;<input type="text"><button class="yz" @click="jiaoyan">获取验证码{{num}}</button><br>
+		 &nbsp;<button class='tj' type="submit" @click="tjzc">提交</button>			
+	</div>
+	</template>
+	<script src="lib/mod.js"></script>
+	<script>
+		require('module/router/router')
+	</script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+.header {
+	background-color: #CAC96F;
+	color: #fff;
+	height: 60px;
+	line-height: 60px;
+}
+.header .go-back {
+	float: left;
+	position: relative;
+}
+.header .go-back .arrow {
+	position: absolute;
+	border: 10px solid transparent;
+	border-right-color: #fff;
+	top: 22px;
+	left: 0;
+}
+.header .go-back .arrow.green {
+	border-right-color: #CAC96F;
+    top: -10px;
+    left: -7px;
+}
+ .login {
+	float: right;
+	font-size: 17px;
+	margin-right: 10px;
+	color:#fff;
+}
+.header h1 {
+	font-size: 24px;
+	text-align: center;
+	text-indent: 20px;
+}
+.search {
+	padding: 10px 20px;
+	background-color:#fff;
+	/*height:40px;*/
+}
+.search input {
+	height: 30px;
+	line-height: 40px;
+	width: 75%;
+	box-sizing: border-box;
+	padding: 0px 20px;
+	font-size: 14px;
+	border-radius: 10px;
+	background: #efefef;
+	border: none;
+	outline: none;
+	float: right;
+	margin-bottom: 20px;
+}
+.search input{
+	float: right;
+}
+.search .coner{
+	float: left;
+	height: 30px;
+	line-height: 30px;
+	margin-bottom: 20px;
+
+}
+.search .coner .arrow {
+	border: 8px solid transparent;
+	border-top-color: #CAC96F;
+	font-size: 0;
+	position: relative;
+	left: 10px;
+}
+.search .coner .arrow .arrow.purple{
+	position: absolute;
+	top: -12px;
+	left: -8px;
+	border-top-color: white;
+
+}

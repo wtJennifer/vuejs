@@ -1,0 +1,19 @@
+.footer input{
+	width: 70%;
+	line-height: 20px;
+	margin-top: 20px;
+}
+.yz{
+	position:relative;
+	left:220px;
+}
+.tj{
+	width: 70%;
+	margin-top:20px;
+	background-color:yellow;
+	border:none;
+	height: 30px;
+}
+.regin a{
+	color:red;
+}
